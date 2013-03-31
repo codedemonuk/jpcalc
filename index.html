@@ -1,0 +1,66 @@
+<!doctype html>
+<html class="no-js">
+	<head>
+		<title>Fines Calculator</title>
+		<!--
+		<script type="text/javascript" src="scripts/jquery-1.9.1.min.js"></script>
+		-->
+		<script type="text/javascript" src="scripts/knockout-2.2.1.min.js"></script>
+	</head>
+	<body>
+		<div>
+			<label>Income</label>
+			<input type="text" data-bind="value: income"/>
+		</div>
+
+		<div>
+			<label>Multiplier</label>
+			<input type="text" data-bind="value: percentage"/>
+		</div>
+
+		<div>
+			<label>Fine</label>
+			<span data-bind="text: fine"></span>
+		</div>
+		<div>
+			<label>Court Costs</label>
+			<input type="text" data-bind="value: courtCosts"/>
+		</div>
+		<div>
+			<label>Victim Surcharge</label>
+			<input type="text" data-bind="value: victimSurcharge"/>
+		</div>
+		<div>
+			<label>Total</label>
+			<span data-bind="text: total"></span
+		</div>
+
+
+		<script type="text/javascript">
+			function FineCalculatorViewModel(){
+				this.courtCosts = ko.observable( 85 );
+				this.income = ko.observable( 400 );
+				this.percentage = ko.observable( 1.5 );
+				
+				this.fine = ko.computed( function(){
+					return this.income() * this.percentage();
+				}, this);
+
+				this.victimSurcharge = ko.computed( function(){
+					var calculated = this.fine() * 0.1;
+					if ( calculated < 20 )
+						return 20;
+					if ( calculated > 200 )
+						return 200;
+					return calculated;
+				}, this);
+
+				this.total = ko.computed( function(){
+					return this.fine() + this.courtCosts() + this.victimSurcharge() - 0;
+				}, this);
+			}
+
+			ko.applyBindings(new FineCalculatorViewModel());
+		</script>
+	</body>
+</html>
