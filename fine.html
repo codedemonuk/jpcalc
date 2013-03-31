@@ -15,11 +15,14 @@
 		</div>
 		<div>
 			<label>Income
-				<input type="number" data-bind="value: weeklyIncome"/>
+				<input type="number" data-bind="value: income"/>
 			</label>
 		</div>
 		<div>
 			<!-- Income buttons -->
+			<label><input type="radio" name="incomePeriod" value="annual" data-bind="checked: incomePeriod" />Annual</label>
+			<label><input type="radio" name="incomePeriod" value="monthly" data-bind="checked: incomePeriod" />Monthly</label>
+			<label><input type="radio" name="incomePeriod" value="weekly" data-bind="checked: incomePeriod" />Weekly</label>
 			<button data-bind="click: defaultIncome">£400</button>
 			<button data-bind="click: defaultUnemployedIncome">£110</button>
 		</div>
@@ -61,11 +64,25 @@
 
 		<script type="text/javascript">
 			function FineCalculatorViewModel(){
-				this.courtCosts = ko.observable( 85 );
-				this.weeklyIncome = ko.observable( 400 );
+				this.courtCosts = ko.observable( 85 );			
 				this.percentage = ko.observable( 1.50 );
 				this.discount = ko.observable( 1.0 );
 				this.other = ko.observable( 0.0 );
+
+				this.income = ko.observable( 400 );
+				this.incomePeriod = ko.observable( 'weekly' );
+				this.weeklyIncome = ko.computed( function(){
+					if( this.incomePeriod() === 'annual')
+					{
+						return this.income() / 52;
+					}
+					else if (this.incomePeriod() === 'monthly')
+					{
+						return this.income() * 12 / 52;
+					}
+					return this.income();
+				}, this );
+
 
 				this.fine = ko.computed( function(){
 					return this.weeklyIncome() * this.percentage() * this.discount();
@@ -86,11 +103,13 @@
 
 				// methds
 				this.defaultIncome = function(){
-					this.weeklyIncome(400);
+					this.income(400);
+					this.incomePeriod('weekly');
 				};
 
 				this.defaultUnemployedIncome = function () {
-					this.weeklyIncome(110);
+					this.income(110);
+					this.incomePeriod('weekly');
 				};
 			}
 
