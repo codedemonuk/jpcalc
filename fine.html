@@ -6,11 +6,12 @@
 	</head>
 	<body>
 		<div>
-			<label><input type="radio" name="band" value="0.50" data-bind="checked: percentage" />A</label>
-			<label><input type="radio" name="band" value="1.00" data-bind="checked: percentage" />B</label>
-			<label><input type="radio" name="band" value="1.50" data-bind="checked: percentage" />C</label>
-			<label><input type="radio" name="band" value="2.00" data-bind="checked: percentage" />D</label>
-			<label><input type="radio" name="band" value="2.50" data-bind="checked: percentage" />E</label>
+			<!-- Fine Band -->
+			<label><input type="radio" name="band" value="0.5" data-bind="checked: percentage" />A</label>
+			<label><input type="radio" name="band" value="1.0" data-bind="checked: percentage" />B</label>
+			<label><input type="radio" name="band" value="1.5" data-bind="checked: percentage" />C</label>
+			<label><input type="radio" name="band" value="2.5" data-bind="checked: percentage" />D</label>
+			<label><input type="radio" name="band" value="4.0" data-bind="checked: percentage" />E</label>
 		</div>
 		<div>
 			<label>Income</label>
@@ -21,7 +22,13 @@
 			<label>Multiplier</label>
 			<input type="number" data-bind="value: percentage"/>
 		</div>
-
+		<div>
+			<!-- Discount -->
+			<label><input type="radio" name="discount" value="0.6666666666" data-bind="checked: discount" />33%</label>
+			<label><input type="radio" name="discount" value="0.75" data-bind="checked: discount" />25%</label>
+			<label><input type="radio" name="discount" value="0.9" data-bind="checked: discount" />10%</label>
+			<label><input type="radio" name="discount" value="1.0" data-bind="checked: discount" />Not Guilty</label>
+		</div>
 		<div>
 			<label>Fine</label>
 			<span data-bind="text: fine"></span>
@@ -44,18 +51,19 @@
 			function FineCalculatorViewModel(){
 				this.courtCosts = ko.observable( 85 );
 				this.income = ko.observable( 400 );
-				this.percentage = ko.observable( 1.5 );
-				
+				this.percentage = ko.observable( 1.50 );
+				this.discount = ko.observable( 1.0 );
+
 				this.fine = ko.computed( function(){
-					return this.income() * this.percentage();
+					return this.income() * this.percentage() * this.discount();
 				}, this);
 
 				this.victimSurcharge = ko.computed( function(){
 					var calculated = this.fine() * 0.1;
 					if ( calculated < 20 )
 						return 20;
-					if ( calculated > 200 )
-						return 200;
+					if ( calculated > 120 )
+						return 120;
 					return calculated;
 				}, this);
 
