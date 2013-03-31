@@ -15,10 +15,14 @@
 		</div>
 		<div>
 			<label>Income
-				<input type="number" data-bind="value: income"/>
+				<input type="number" data-bind="value: weeklyIncome"/>
 			</label>
 		</div>
-
+		<div>
+			<!-- Income buttons -->
+			<button data-bind="click: defaultIncome">£400</button>
+			<button data-bind="click: defaultUnemployedIncome">£110</button>
+		</div>
 		<div>
 			<label>Multiplier
 				<input type="number" data-bind="value: percentage"/>
@@ -58,13 +62,13 @@
 		<script type="text/javascript">
 			function FineCalculatorViewModel(){
 				this.courtCosts = ko.observable( 85 );
-				this.income = ko.observable( 400 );
+				this.weeklyIncome = ko.observable( 400 );
 				this.percentage = ko.observable( 1.50 );
 				this.discount = ko.observable( 1.0 );
 				this.other = ko.observable( 0.0 );
 
 				this.fine = ko.computed( function(){
-					return this.income() * this.percentage() * this.discount();
+					return this.weeklyIncome() * this.percentage() * this.discount();
 				}, this);
 
 				this.victimSurcharge = ko.computed( function(){
@@ -79,6 +83,15 @@
 				this.total = ko.computed( function(){
 					return Number(this.fine()) + Number(this.other() ) +  Number(this.courtCosts()) + Number(this.victimSurcharge());
 				}, this);
+
+				// methds
+				this.defaultIncome = function(){
+					this.weeklyIncome(400);
+				};
+
+				this.defaultUnemployedIncome = function () {
+					this.weeklyIncome(110);
+				};
 			}
 
 			ko.applyBindings(new FineCalculatorViewModel());
