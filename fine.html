@@ -14,13 +14,15 @@
 			<label><input type="radio" name="band" value="4.0" data-bind="checked: percentage" />E</label>
 		</div>
 		<div>
-			<label>Income</label>
-			<input type="number" data-bind="value: income"/>
+			<label>Income
+				<input type="number" data-bind="value: income"/>
+			</label>
 		</div>
 
 		<div>
-			<label>Multiplier</label>
-			<input type="number" data-bind="value: percentage"/>
+			<label>Multiplier
+				<input type="number" data-bind="value: percentage"/>
+			</label>
 		</div>
 		<div>
 			<!-- Discount -->
@@ -32,6 +34,12 @@
 		<div>
 			<label>Fine</label>
 			<span data-bind="text: fine"></span>
+		</div>
+		<div>
+			<!-- Other eg. compensation -->
+			<label>Other
+				<input type="number" data-bind="value: other"/>
+			</label>
 		</div>
 		<div>
 			<label>Court Costs</label>
@@ -53,6 +61,7 @@
 				this.income = ko.observable( 400 );
 				this.percentage = ko.observable( 1.50 );
 				this.discount = ko.observable( 1.0 );
+				this.other = ko.observable( 0.0 );
 
 				this.fine = ko.computed( function(){
 					return this.income() * this.percentage() * this.discount();
@@ -68,7 +77,7 @@
 				}, this);
 
 				this.total = ko.computed( function(){
-					return Number(this.fine()) + Number(this.courtCosts()) + Number(this.victimSurcharge());
+					return Number(this.fine()) + Number(this.other() ) +  Number(this.courtCosts()) + Number(this.victimSurcharge());
 				}, this);
 			}
 
