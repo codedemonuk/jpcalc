@@ -25,7 +25,7 @@
 		</div>
 		<div>
 			<label>Victim Surcharge</label>
-			<input type="text" data-bind="value: victimSurcharge"/>
+			<span data-bind="text: victimSurcharge"/>
 		</div>
 		<div>
 			<label>Total</label>
@@ -53,7 +53,7 @@
 				}, this);
 
 				this.total = ko.computed( function(){
-					return this.fine() + this.courtCosts() + this.victimSurcharge() - 0;
+					return Number(this.fine()) + Number(this.courtCosts()) + Number(this.victimSurcharge());
 				}, this);
 			}
 
