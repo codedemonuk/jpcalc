@@ -24,7 +24,7 @@ function FineCalculatorViewModel(){
 
 		var calculatedFine = this.weeklyIncome() * this.percentage() * this.discount();
 
-		switch( this.level() )
+		switch( Number(this.level()) )
 		{
 			case 1:
 				return calculatedFine < 200 ? calculatedFine : 200;
