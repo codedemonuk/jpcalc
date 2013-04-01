@@ -1,4 +1,5 @@
 function FineCalculatorViewModel(){
+
 	this.courtCosts = ko.observable( 85 );			
 	this.percentage = ko.observable( 1.50 );
 	this.discount = ko.observable( 1.0 );
@@ -40,7 +41,7 @@ function FineCalculatorViewModel(){
 	}, this);
 
 	this.victimSurcharge = ko.computed( function(){
-		var calculated = this.fine() * 0.1;
+		var calculated = Math.round( this.fine() * 0.1 );
 		if ( calculated < 20 )
 			return 20;
 		if ( calculated > 120 )
