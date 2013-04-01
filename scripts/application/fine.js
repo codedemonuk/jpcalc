@@ -4,9 +4,8 @@ function FineCalculatorViewModel(){
 	this.percentage = ko.observable( 1.50 );
 	this.discount = ko.observable( 1.0 );
 	this.other = ko.observable( 0.0 );
-
+	this.fineLevel = ko.observable(5);
 	this.rounding = ko.observable( true );
-
 	this.income = ko.observable( 400 );
 	this.incomePeriod = ko.observable( 'weekly' );
 
@@ -20,10 +19,7 @@ function FineCalculatorViewModel(){
 		return this.income();
 	}, this );
 
-	this.fineLevel = ko.observable(5);
-
-	this.fine = ko.computed( function(){
-
+	this.fine = ko.computed( function(){ 
 		var calculatedFine = this.weeklyIncome() * this.percentage() * this.discount();
 		var totalShouldBeRounded = this.rounding();
 
@@ -48,10 +44,12 @@ function FineCalculatorViewModel(){
 
 	this.victimSurcharge = ko.computed( function(){
 		var calculated = Math.round( this.fine() * 0.1 );
-		if ( calculated < 20 )
+		if ( calculated < 20 ){
 			return 20;
-		if ( calculated > 120 )
+		}
+		if ( calculated > 120 ){
 			return 120;
+		}
 		return calculated;
 	}, this);	
 
