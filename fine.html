@@ -13,6 +13,16 @@
 			<label><input type="radio" name="band" value="2.5" data-bind="checked: percentage" />D</label>
 			<label><input type="radio" name="band" value="4.0" data-bind="checked: percentage" />E</label>
 		</div>
+
+		<div>
+			<!-- Fine Level -->
+			<label><input type="radio" name="level" value="1" data-bind="checked: level" />1</label>
+			<label><input type="radio" name="level" value="2" data-bind="checked: level" />2</label>
+			<label><input type="radio" name="level" value="3" data-bind="checked: level" />3</label>
+			<label><input type="radio" name="level" value="4" data-bind="checked: level" />4</label>
+			<label><input type="radio" name="level" value="5" data-bind="checked: level" />5</label>
+		</div>
+
 		<div>
 			<label>Income
 				<input type="number" data-bind="value: income"/>
@@ -55,65 +65,13 @@
 		<div>
 			<label>Victim Surcharge</label>
 			<span data-bind="text: victimSurcharge"/>
-		</div>
+		</div>	
+
 		<div>
 			<label>Total</label>
 			<span data-bind="text: total"></span>
 		</div>
 
-
-		<script type="text/javascript">
-			function FineCalculatorViewModel(){
-				this.courtCosts = ko.observable( 85 );			
-				this.percentage = ko.observable( 1.50 );
-				this.discount = ko.observable( 1.0 );
-				this.other = ko.observable( 0.0 );
-
-				this.income = ko.observable( 400 );
-				this.incomePeriod = ko.observable( 'weekly' );
-				this.weeklyIncome = ko.computed( function(){
-					if( this.incomePeriod() === 'annual')
-					{
-						return this.income() / 52;
-					}
-					else if (this.incomePeriod() === 'monthly')
-					{
-						return this.income() * 12 / 52;
-					}
-					return this.income();
-				}, this );
-
-
-				this.fine = ko.computed( function(){
-					return this.weeklyIncome() * this.percentage() * this.discount();
-				}, this);
-
-				this.victimSurcharge = ko.computed( function(){
-					var calculated = this.fine() * 0.1;
-					if ( calculated < 20 )
-						return 20;
-					if ( calculated > 120 )
-						return 120;
-					return calculated;
-				}, this);
-
-				this.total = ko.computed( function(){
-					return Number(this.fine()) + Number(this.other() ) +  Number(this.courtCosts()) + Number(this.victimSurcharge());
-				}, this);
-
-				// methds
-				this.defaultIncome = function(){
-					this.income(400);
-					this.incomePeriod('weekly');
-				};
-
-				this.defaultUnemployedIncome = function () {
-					this.income(110);
-					this.incomePeriod('weekly');
-				};
-			}
-
-			ko.applyBindings(new FineCalculatorViewModel());
-		</script>
+		<script type="text/javascript" src="scripts/application/fine.js"></script>
 	</body>
 </html>
