@@ -5,6 +5,12 @@
 		<script type="text/javascript" src="scripts/knockout-2.2.1.min.js"></script>
 	</head>
 	<body>
+
+		<div>
+			<!-- Rounding -->
+			<label><input type="checkbox" name="rounding" data-bind="checked: rounding" />Rounding</label>
+		</div>
+
 		<div>
 			<!-- Fine Band -->
 			<label><input type="radio" name="band" value="0.5" data-bind="checked: percentage" />A</label>
@@ -16,11 +22,11 @@
 
 		<div>
 			<!-- Fine Level -->
-			<label><input type="radio" name="level" value="1" data-bind="checked: level" />1</label>
-			<label><input type="radio" name="level" value="2" data-bind="checked: level" />2</label>
-			<label><input type="radio" name="level" value="3" data-bind="checked: level" />3</label>
-			<label><input type="radio" name="level" value="4" data-bind="checked: level" />4</label>
-			<label><input type="radio" name="level" value="5" data-bind="checked: level" />5</label>
+			<label><input type="radio" name="level" value="1" data-bind="checked: fineLevel" />1</label>
+			<label><input type="radio" name="level" value="2" data-bind="checked: fineLevel" />2</label>
+			<label><input type="radio" name="level" value="3" data-bind="checked: fineLevel" />3</label>
+			<label><input type="radio" name="level" value="4" data-bind="checked: fineLevel" />4</label>
+			<label><input type="radio" name="level" value="5" data-bind="checked: fineLevel" />5</label>
 		</div>
 
 		<div>

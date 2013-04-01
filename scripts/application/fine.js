@@ -5,27 +5,33 @@ function FineCalculatorViewModel(){
 	this.discount = ko.observable( 1.0 );
 	this.other = ko.observable( 0.0 );
 
+	this.rounding = ko.observable( true );
+
 	this.income = ko.observable( 400 );
 	this.incomePeriod = ko.observable( 'weekly' );
+
 	this.weeklyIncome = ko.computed( function(){
-		if( this.incomePeriod() === 'annual')
-		{
+		if( this.incomePeriod() === 'annual') {
 			return this.income() / 52;
 		}
-		else if (this.incomePeriod() === 'monthly')
-		{
+		else if (this.incomePeriod() === 'monthly') {
 			return this.income() * 12 / 52;
 		}
 		return this.income();
 	}, this );
 
-	this.level = ko.observable(5);
+	this.fineLevel = ko.observable(5);
 
 	this.fine = ko.computed( function(){
 
 		var calculatedFine = this.weeklyIncome() * this.percentage() * this.discount();
+		var totalShouldBeRounded = this.rounding();
 
-		switch( Number(this.level()) )
+		if ( totalShouldBeRounded ){
+			calculatedFine = 5 * Math.round(calculatedFine/5)
+		}
+			
+		switch( Number(this.fineLevel()) )
 		{
 			case 1:
 				return calculatedFine < 200 ? calculatedFine : 200;
