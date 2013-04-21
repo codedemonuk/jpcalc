@@ -1,0 +1,85 @@
+<!doctype html>
+<html class="no-js">
+	<head>
+		<title>Axle Weight Fines</title>
+		<script type="text/javascript" src="scripts/knockout-2.2.1.min.js"></script>
+	</head>
+	<body>
+
+		<h1>Axle Weights Fines</h1>
+
+		<div>
+			<!-- Rounding -->
+			<label><input type="checkbox" name="rounding" data-bind="checked: rounding" />Rounding</label>
+		</div>
+
+		<div>
+			<!-- Fine Band -->
+			<label><input type="radio" name="band" value="0.5" data-bind="checked: percentage" />A</label>
+			<label><input type="radio" name="band" value="1.0" data-bind="checked: percentage" />B</label>
+			<label><input type="radio" name="band" value="1.5" data-bind="checked: percentage" />C</label>
+			<label><input type="radio" name="band" value="2.5" data-bind="checked: percentage" />D</label>
+			<label><input type="radio" name="band" value="4.0" data-bind="checked: percentage" />E</label>
+		</div>
+
+		<div>
+			<!-- Fine Level -->
+			<label><input type="radio" name="level" value="1" data-bind="checked: fineLevel" />1</label>
+			<label><input type="radio" name="level" value="2" data-bind="checked: fineLevel" />2</label>
+			<label><input type="radio" name="level" value="3" data-bind="checked: fineLevel" />3</label>
+			<label><input type="radio" name="level" value="4" data-bind="checked: fineLevel" />4</label>
+			<label><input type="radio" name="level" value="5" data-bind="checked: fineLevel" />5</label>
+		</div>
+
+		<div>
+			<label>Income
+				<input type="number" data-bind="value: income"/>
+			</label>
+		</div>
+		<div>
+			<!-- Income buttons -->
+			<label><input type="radio" name="incomePeriod" value="annual" data-bind="checked: incomePeriod" />Annual</label>
+			<label><input type="radio" name="incomePeriod" value="monthly" data-bind="checked: incomePeriod" />Monthly</label>
+			<label><input type="radio" name="incomePeriod" value="weekly" data-bind="checked: incomePeriod" />Weekly</label>
+			<button data-bind="click: defaultIncome">£400</button>
+			<button data-bind="click: defaultUnemployedIncome">£110</button>
+		</div>
+		<div>
+			<label>Multiplier
+				<input type="number" data-bind="value: percentage"/>
+			</label>
+		</div>
+		<div>
+			<!-- Discount -->
+			<label><input type="radio" name="discount" value="0.6666666666" data-bind="checked: discount" />33%</label>
+			<label><input type="radio" name="discount" value="0.75" data-bind="checked: discount" />25%</label>
+			<label><input type="radio" name="discount" value="0.9" data-bind="checked: discount" />10%</label>
+			<label><input type="radio" name="discount" value="1.0" data-bind="checked: discount" />Not Guilty</label>
+		</div>
+		<div>
+			<label>Fine</label>
+			<span data-bind="text: fine"></span>
+		</div>
+		<div>
+			<!-- Other eg. compensation -->
+			<label>Other
+				<input type="number" data-bind="value: other"/>
+			</label>
+		</div>
+		<div>
+			<label>Court Costs</label>
+			<input type="number" data-bind="value: courtCosts"/>
+		</div>
+		<div>
+			<label>Victim Surcharge</label>
+			<span data-bind="text: victimSurcharge"/>
+		</div>	
+
+		<div>
+			<label>Total</label>
+			<span data-bind="text: total"></span>
+		</div>
+
+		<script type="text/javascript" src="scripts/application/fine.js"></script>
+	</body>
+</html>
