@@ -27,19 +27,8 @@ function AxleWeightsFineViewModel(){
 			calculatedFine = 5 * Math.round(calculatedFine/5)
 		}
 			
-		switch( Number(this.fineLevel()) )
-		{
-			case 1:
-				return calculatedFine < 200 ? calculatedFine : 200;
-			case 2:
-				return calculatedFine < 500 ? calculatedFine : 500;
-			case 3:
-				return calculatedFine < 1000 ? calculatedFine : 1000;
-			case 4:
-				return calculatedFine < 2500 ? calculatedFine : 2500;
-			default: // Level 5
-				return calculatedFine < 5000 ? calculatedFine : 5000;
-		}
+		return calculatedFine < 5000 ? calculatedFine : 5000;
+		
 	}, this);
 
 	this.victimSurcharge = ko.computed( function(){
